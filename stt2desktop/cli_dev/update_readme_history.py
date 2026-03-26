@@ -5,9 +5,9 @@ from pathlib import Path
 from cli_base.cli_tools import git_history
 from cli_base.cli_tools.verbosity import setup_logging
 from cli_base.tyro_commands import TyroVerbosityArgType
-from rich import print  # noqa
+from rich import print
 
-from stt2kde.cli_dev import app
+from stt2desktop.cli_dev import app
 
 
 logger = logging.getLogger(__name__)

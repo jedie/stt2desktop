@@ -1,29 +1,90 @@
-# stt2kde
+# stt2desktop
 
-[![tests](https://github.com/jedie/stt2kde/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/jedie/stt2kde/actions/workflows/tests.yml)
-[![codecov](https://codecov.io/github/jedie/stt2kde/branch/main/graph/badge.svg)](https://app.codecov.io/github/jedie/stt2kde)
-[![stt2kde @ PyPi](https://img.shields.io/pypi/v/stt2kde?label=stt2kde%20%40%20PyPi)](https://pypi.org/project/stt2kde/)
-[![Python Versions](https://img.shields.io/pypi/pyversions/stt2kde)](https://github.com/jedie/stt2kde/blob/main/pyproject.toml)
-[![License GPL-3.0-or-later](https://img.shields.io/pypi/l/stt2kde)](https://github.com/jedie/stt2kde/blob/main/LICENSE)
+[![tests](https://github.com/jedie/stt2desktop/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/jedie/stt2desktop/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/github/jedie/stt2desktop/branch/main/graph/badge.svg)](https://app.codecov.io/github/jedie/stt2desktop)
+[![stt2desktop @ PyPi](https://img.shields.io/pypi/v/stt2desktop?label=stt2desktop%20%40%20PyPi)](https://pypi.org/project/stt2desktop/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/stt2desktop)](https://github.com/jedie/stt2desktop/blob/main/pyproject.toml)
+[![License GPL-3.0-or-later](https://img.shields.io/pypi/l/stt2desktop)](https://github.com/jedie/stt2desktop/blob/main/LICENSE)
 
-local STT for KDE using faster-whisper
+Local speech-to-text for desktop using [faster-whisper](https://github.com/SYSTRAN/faster-whisper).
+
+Let's you dictate text into any application without sending audio to any cloud services.
+Everything runs locally on your machine — no internet connection required after the initial model was download.
+
+## How it works
+
+1. Run `./cli.py listen` — the Whisper model is loaded into memory (downloaded on first run).
+2. Hold **Scroll Lock** to record from your microphone.
+3. Release **Scroll Lock** — the audio is transcribed locally by faster-whisper (CPU, `int8`).
+4. The text is typed into the focused window via `wtype` (Wayland) or `xdotool` (X11).
+
+## Setup
+
+Requirements: Python 3.12+, [`uv`](https://github.com/astral-sh/uv), a working microphone, and either `wtype` (Wayland) or `xdotool` (X11):
+
+```bash
+sudo apt install wtype     # Wayland
+sudo apt install xdotool   # X11
+```
+
+Then run:
+
+```bash
+./cli.py listen
+```
+
+[comment]: <> (✂✂✂ auto generated listen help start ✂✂✂)
+```
+usage: ./cli.py listen [-h] [LISTEN OPTIONS]
+
+Start the STT listener. Hold the hotkey to record, release to transcribe and insert.
+
+╭─ options ────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
+│ -h, --help          show this help message and exit                                                                  │
+│ -v, --verbosity     Verbosity level; e.g.: -v, -vv, -vvv, etc. (repeatable)                                          │
+│ --model {tiny_en,tiny,base_en,base,small_en,small,medium_en,medium,large_v1,large_v2,large_v3,large,distil_large_v2, │
+│ distil_medium_en,distil_small_en,distil_large_v3,distil_large_v3_5,large_v3_turbo,turbo}                             │
+│                     Whisper model to use for transcription. (default: small)                                         │
+│ --hotkey {alt,alt_l,alt_r,alt_gr,backspace,caps_lock,cmd,cmd_l,cmd_r,ctrl,ctrl_l,ctrl_r,delete,down,end,enter,esc,   │
+│ f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,home,left,page_down,page_up,right,shift,      │
+│ shift_l,shift_r,space,tab,up,media_play_pause,media_volume_mute,media_volume_down,media_volume_up,media_previous,    │
+│ media_next,insert,menu,num_lock,pause,print_screen,scroll_lock}                                                      │
+│                     Key to hold for recording. Release to transcribe and insert text. (default: scroll_lock)         │
+│ --sample-rate INT   Audio sample rate in Hz. Whisper expects 16000. (default: 16000)                                 │
+│ --device STR        Device to run inference on, e.g. cpu or cuda. (default: auto)                                    │
+│ --compute-type STR  Quantization type, e.g. int8, float16, float32. (default: int8)                                  │
+│ --num-workers INT   Number of parallel transcription workers. Defaults to CPU count. (default:XY)                   │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+```
+[comment]: <> (✂✂✂ auto generated listen help end ✂✂✂)
+
+### Available models
+
+| Model | Size | Speed | Accuracy |
+|-------|------|-------|----------|
+| `tiny` | ~75 MB | fastest | lowest |
+| `base` | ~145 MB | fast | good (default) |
+| `small` | ~460 MB | slower | better |
+| `medium` | ~1.5 GB | slow | high |
+
+Larger models produce more accurate transcriptions but take longer to process. For most use cases `base` or `small` is a good starting point.
 
 ## CLI
 
 [comment]: <> (✂✂✂ auto generated main help start ✂✂✂)
 ```
-usage: ./cli.py [-h] {shell-completion,version}
+usage: ./cli.py [-h] {listen,version}
 
 
 
-╭─ options ─────────────────────────────────────────────────────────────────────────────────╮
-│ -h, --help            show this help message and exit                                     │
-╰───────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ subcommands ─────────────────────────────────────────────────────────────────────────────╮
-│ (required)                                                                                │
-│   • shell-completion  Setup shell completion for this CLI (Currently only for bash shell) │
-│   • version           Print version and exit                                              │
-╰───────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ options ─────────────────────────────────────────────────────────────────────────────────────────╮
+│ -h, --help   show this help message and exit                                                      │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ subcommands ─────────────────────────────────────────────────────────────────────────────────────╮
+│ (required)                                                                                        │
+│   • listen   Start the STT listener. Hold the hotkey to record, release to transcribe and insert. │
+│   • version  Print version and exit                                                               │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated main help end ✂✂✂)
 
@@ -40,43 +101,42 @@ Clone the project and just start the CLI help commands.
 A virtual environment will be created/updated automatically.
 
 ```bash
-~$ git clone https://github.com/jedie/stt2kde.git
-~$ cd stt2kde
-~/stt2kde$ ./cli.py --help
-~/stt2kde$ ./dev-cli.py --help
+~$ git clone https://github.com/jedie/stt2desktop.git
+~$ cd stt2desktop
+~/stt2desktop$ ./cli.py --help
+~/stt2desktop$ ./dev-cli.py --help
 ```
 
 [comment]: <> (✂✂✂ auto generated dev help start ✂✂✂)
 ```
-usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,shell-completion,test,update,update-readme-history,update-test-snapshot-files,version}
+usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,test,update,update-readme-history,update-test-snapshot-files,version}
 
 
 
 ╭─ options ────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ -h, --help     show this help message and exit                                                                       │
+│ -h, --help    show this help message and exit                                                                        │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ subcommands ────────────────────────────────────────────────────────────────────────────────────────────────────────╮
 │ (required)                                                                                                           │
-│   • coverage   Run tests and show coverage report.                                                                   │
-│   • install    Install requirements and 'stt2kde' via pip as editable.                                     │
-│   • lint       Check/fix code style by run: "ruff check --fix"                                                       │
-│   • mypy       Run Mypy (configured in pyproject.toml)                                                               │
-│   • nox        Run nox                                                                                               │
-│   • pip-audit  Run pip-audit check against current requirements files                                                │
-│   • publish    Build and upload this project to PyPi                                                                 │
-│   • shell-completion                                                                                                 │
-│                Setup shell completion for this CLI (Currently only for bash shell)                                   │
-│   • test       Run unittests                                                                                         │
-│   • update     Update dependencies (uv.lock) and git pre-commit hooks                                                │
+│   • coverage  Run tests and show coverage report.                                                                    │
+│   • install   Install requirements and 'stt2desktop' via pip as editable.                                            │
+│   • lint      Check/fix code style by run: "ruff check --fix"                                                        │
+│   • mypy      Run Mypy (configured in pyproject.toml)                                                                │
+│   • nox       Run nox                                                                                                │
+│   • pip-audit                                                                                                        │
+│               Run pip-audit check against current requirements files                                                 │
+│   • publish   Build and upload this project to PyPi                                                                  │
+│   • test      Run unittests                                                                                          │
+│   • update    Update dependencies (uv.lock) and git pre-commit hooks                                                 │
 │   • update-readme-history                                                                                            │
-│                Update project history base on git commits/tags in README.md Will be exited with 1 if the README.md   │
-│                was updated otherwise with 0.                                                                         │
+│               Update project history base on git commits/tags in README.md Will be exited with 1 if the README.md    │
+│               was updated otherwise with 0.                                                                          │
 │                                                                                                                      │
-│                Also, callable via e.g.:                                                                              │
-│                    python -m cli_base update-readme-history -v                                                       │
+│               Also, callable via e.g.:                                                                               │
+│                   python -m cli_base update-readme-history -v                                                        │
 │   • update-test-snapshot-files                                                                                       │
-│                Update all test snapshot files (by remove and recreate all snapshot files)                            │
-│   • version    Print version and exit                                                                                │
+│               Update all test snapshot files (by remove and recreate all snapshot files)                             │
+│   • version   Print version and exit                                                                                 │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated dev help end ✂✂✂)
@@ -86,6 +146,8 @@ usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,shell
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-
+* [**dev**](https://github.com/jedie/stt2desktop/compare/b407f8f...main)
+  * 2026-03-26 - Add POC
+  * 2026-03-26 - init
 
 [comment]: <> (✂✂✂ auto generated history end ✂✂✂)

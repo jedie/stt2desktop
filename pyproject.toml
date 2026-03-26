@@ -1,17 +1,17 @@
 [project]
-name = "stt2kde"
+name = "stt2desktop"
 dynamic = ["version"]
-description = "local STT for KDE using faster-whisper"
+description = "Local speech-to-text for desktop using faster-whisper"
 license = {text = "GPL-3.0-or-later"}
 readme = "README.md"
 authors = [
-    {name = 'Jens Diemer', email = 'jedie@example.tld'}
+    {name = 'Jens Diemer', email = 'stt2desktop@jensdiemer.de'}
 ]
 requires-python = ">=3.12"
 dependencies = [
     "faster-whisper",  # https://github.com/SYSTRAN/faster-whisper
-    "sounddevice",  # https://python-sounddevice.readthedocs.io/
-    "pynput",  # https://pynput.readthedocs.io/
+    "sounddevice",  # https://github.com/spatialaudio/python-sounddevice/
+    "pynput",  # https://github.com/moses-palmer/pynput
     "cli-base-utilities>=0.27.1",  # https://github.com/jedie/cli-base-utilities
     "bx_py_utils",  # https://github.com/boxine/bx_py_utils
     "tyro",  # https://github.com/brentyi/tyro
@@ -38,23 +38,26 @@ dev = [
 
 
 [tool.uv]
+# Don't install bleed-edge versions of dependencies, to avoid undetected issues and supply chain attacks.
 exclude-newer = "1 week"
-exclude-newer-package = { requests = "2026-03-26T00:00:00Z" }
+# Exclude external packages temporarily to fix known issues or current CVEs
+# TODO: Remove requests - v2.33.0 fixed CVE-2026-25645
+exclude-newer-package = { requests = "2026-03-25T18:00:00Z" }
 
 
 [project.urls]
-Documentation = "https://github.com/jedie/stt2kde"
-Source = "https://github.com/jedie/stt2kde"
+Documentation = "https://github.com/jedie/stt2desktop"
+Source = "https://github.com/jedie/stt2desktop"
 
 [project.scripts]
-stt2kde = "stt2kde.__main__:main"
+stt2desktop = "stt2desktop.__main__:main"
 
 
 [tool.bx_py_utils.doc_write]
 docstring_prefix = 'DocWrite:'
 macro_prefix = 'DocWriteMacro:'
 output_base_path = './docs/'
-search_paths = ['./stt2kde/']
+search_paths = ['./stt2desktop/']
 delete_obsolete_files = true
 
 
@@ -63,10 +66,10 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["stt2kde"]
+packages = ["stt2desktop"]
 
 [tool.hatch.version]
-path = "stt2kde/__init__.py"
+path = "stt2desktop/__init__.py"
 
 
 [tool.cli_base.pip_audit]
@@ -77,7 +80,7 @@ ignore-vuln=[
 ]
 
 [tool.cli_base]
-version_module_name = "stt2kde"  # Used by "update-readme-history" git hook
+version_module_name = "stt2desktop"  # Used by "update-readme-history" git hook
 
 
 [tool.ruff]
@@ -96,6 +99,7 @@ extend-select = [
 ignore = [
     "E402", # https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file/
     "E731", # https://docs.astral.sh/ruff/rules/lambda-assignment/
+    "PLW1508", # Invalid type for environment variable default
 ]
 
 [tool.ruff.lint.isort]
@@ -147,11 +151,11 @@ applied_migrations = [
 [manageprojects.cookiecutter_context.cookiecutter]
 full_name = "Jens Diemer"
 github_username = "jedie"
-author_email = "jedie@example.tld"
-package_name = "stt2kde"
+author_email = "stt2desktop@jensdiemer.de"
+package_name = "stt2desktop"
 package_version = "0.0.1"
 package_description = "local STT for KDE using faster-whisper"
-package_url = "https://github.com/jedie/stt2kde"
-issues_url = "https://github.com/jedie/stt2kde/issues"
+package_url = "https://github.com/jedie/stt2desktop"
+issues_url = "https://github.com/jedie/stt2desktop/issues"
 license = "GPL-3.0-or-later"
 _template = "https://github.com/jedie/cookiecutter_templates/"

@@ -1,5 +1,5 @@
 """
-    CLI for usage
+CLI for usage
 """
 
 import logging
@@ -11,8 +11,8 @@ from cli_base.cli_tools.version_info import print_version
 from rich import print  # noqa
 from tyro.extras import SubcommandApp
 
-import stt2kde
-from stt2kde import constants
+import stt2desktop
+from stt2desktop import constants
 
 
 logger = logging.getLogger(__name__)
@@ -31,7 +31,7 @@ def version():
 
 
 def main(args: Sequence[str] | None = None):
-    print_version(stt2kde)
+    print_version(stt2desktop)
     app.cli(
         prog='./cli.py',
         description=constants.CLI_EPILOG,

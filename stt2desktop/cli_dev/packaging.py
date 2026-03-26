@@ -7,8 +7,8 @@ from cli_base.run_pip_audit import run_pip_audit
 from cli_base.tyro_commands import TyroVerbosityArgType
 from manageprojects.utilities.publish import publish_package
 
-import stt2kde
-from stt2kde.cli_dev import PACKAGE_ROOT, app
+import stt2desktop
+from stt2desktop.cli_dev import PACKAGE_ROOT, app
 
 
 logger = logging.getLogger(__name__)
@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 @app.command
 def install():
     """
-    Install requirements and 'stt2kde' via pip as editable.
+    Install requirements and 'stt2desktop' via pip as editable.
     """
     tools_executor = ToolsExecutor(cwd=PACKAGE_ROOT)
     tools_executor.verbose_check_call('uv', 'sync')
@@ -59,4 +59,4 @@ def publish():
     """
     run_unittest_cli(verbose=False, exit_after_run=False)  # Don't publish a broken state
 
-    publish_package(module=stt2kde, package_path=PACKAGE_ROOT)
+    publish_package(module=stt2desktop, package_path=PACKAGE_ROOT)

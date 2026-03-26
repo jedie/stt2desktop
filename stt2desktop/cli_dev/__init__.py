@@ -1,5 +1,5 @@
 """
-    CLI for development
+CLI for development
 """
 
 import importlib
@@ -14,16 +14,16 @@ from cli_base.cli_tools.version_info import print_version
 from typeguard import install_import_hook
 from tyro.extras import SubcommandApp
 
-import stt2kde
-from stt2kde import constants
+import stt2desktop
+from stt2desktop import constants
 
 
 # Check type annotations via typeguard in all tests.
 # Sadly we must activate this here and can't do this in ./tests/__init__.py
-install_import_hook(packages=('stt2kde',))
+install_import_hook(packages=('stt2desktop',))
 
 # reload the module, after the typeguard import hook is activated:
-importlib.reload(stt2kde)
+importlib.reload(stt2desktop)
 
 
 logger = logging.getLogger(__name__)
@@ -48,7 +48,7 @@ def version():
 
 
 def main(args: Sequence[str] | None = None):
-    print_version(stt2kde)
+    print_version(stt2desktop)
 
     if len(sys.argv) >= 2:
         # Check if we can just pass a command call to origin CLI:

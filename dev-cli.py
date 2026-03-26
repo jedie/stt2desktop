@@ -61,7 +61,7 @@ def main(argv):
 
     # Call our entry point CLI:
     try:
-        verbose_check_call(uv_bin, 'run', '--active', '-m', 'stt2kde.cli_dev', *argv[1:])
+        verbose_check_call(uv_bin, 'run', '--active', '-m', 'stt2desktop.cli_dev', *argv[1:])
     except subprocess.CalledProcessError as err:
         sys.exit(err.returncode)
     except KeyboardInterrupt:
