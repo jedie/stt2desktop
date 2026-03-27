@@ -41,6 +41,10 @@ Then run:
 stt2desktop listen
 ```
 
+The default global hotkey is **Scroll Lock** (In german: "rollen").
+You can change it via the `--hotkey` option (see below).
+Proposal for alternative key: `ctrl_r`, `alt_r`, `cmd_r`, `shift_r` ;)
+
 ## CLI listen
 
 [comment]: <> (✂✂✂ auto generated listen help start ✂✂✂)
@@ -59,7 +63,8 @@ Start the STT listener. Hold the hotkey to record, release to transcribe and ins
 │ f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,home,left,page_down,page_up,right,shift,      │
 │ shift_l,shift_r,space,tab,up,media_play_pause,media_volume_mute,media_volume_down,media_volume_up,media_previous,    │
 │ media_next,insert,menu,num_lock,pause,print_screen,scroll_lock}                                                      │
-│                           Key to hold for recording. Release to transcribe and insert text. (default: scroll_lock)   │
+│                           Key to hold for recording. Release to transcribe and insert text. Proposal for alternative │
+│                           key: ctrl_r, alt_r, cmd_r, shift_r. (default: scroll_lock)                                 │
 │ --sample-rate INT         Audio sample rate in Hz. Whisper expects 16000. (default: 16000)                           │
 │ --device STR              Device to run inference on, e.g. cpu or cuda. (default: auto)                              │
 │ --compute-type STR        Quantization type, e.g. int8, float16, float32. (default: int8)                            │
@@ -138,7 +143,8 @@ usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,test,
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/stt2desktop/compare/v0.1.0...main)
+* [v0.1.1](https://github.com/jedie/stt2desktop/compare/v0.1.0...v0.1.1)
+  * 2026-03-27 - +Proposal for alternative hotkey
   * 2026-03-27 - fix color outputs
   * 2026-03-27 - Update requirements
   * 2026-03-27 - add missing license file.
