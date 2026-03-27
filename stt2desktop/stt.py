@@ -3,6 +3,7 @@ import subprocess
 import threading
 from concurrent.futures import Future, ThreadPoolExecutor
 
+import chime
 import numpy as np
 import sounddevice as sd
 from faster_whisper import WhisperModel
@@ -71,37 +72,48 @@ def record_and_inject(
     model: WhisperModel,
     stop_event: threading.Event,
     sample_rate: int,
+    notification: bool,
 ) -> None:
+    if notification:
+        chime.warning()
     audio = record_until_event(stop_event=stop_event, sample_rate=sample_rate)
+    if notification:
+        chime.info()
     print('[cyan]Transcribing...[/cyan]')
     text = transcribe(model, audio)
     if text:
+        if notification:
+            chime.success()
         print(f'[green]Inserting:[/green] {text}')
         inject_text(text)
     else:
+        if notification:
+            chime.error()
         print('[dim]No speech detected.[/dim]')
 
 
 class Recorder:
-    def __init__(self, *, model: WhisperModel, sample_rate: int):
-        self._model = model
-        self._sample_rate = sample_rate
-        self._stop_event: threading.Event | None = None
-        self._future: Future | None = None
-        self._executor = ThreadPoolExecutor(max_workers=1)
+    def __init__(self, *, model: WhisperModel, sample_rate: int, notification: bool):
+        self.model = model
+        self.sample_rate = sample_rate
+        self.notification = notification
+        self.stop_event: threading.Event | None = None
+        self.future: Future | None = None
+        self.executor = ThreadPoolExecutor(max_workers=1)
 
     def start(self):
-        if self._future and not self._future.done():
+        if self.future and not self.future.done():
             return
-        self._stop_event = threading.Event()
-        self._future = self._executor.submit(
+        self.stop_event = threading.Event()
+        self.future = self.executor.submit(
             record_and_inject,
-            model=self._model,
-            stop_event=self._stop_event,
-            sample_rate=self._sample_rate,
+            model=self.model,
+            stop_event=self.stop_event,
+            sample_rate=self.sample_rate,
+            notification=self.notification,
         )
         print('[yellow]Recording...[/yellow]')
 
     def stop(self):
-        if self._stop_event is not None:
-            self._stop_event.set()
+        if self.stop_event is not None:
+            self.stop_event.set()
