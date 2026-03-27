@@ -15,10 +15,10 @@ Currently only tested under Linux with KDE ;)
 
 ## How it works
 
-1. Run `./cli.py listen` — the Whisper model is loaded into memory (downloaded on first run).
-2. Hold **Scroll Lock** to record from your microphone.
-3. Release **Scroll Lock** — the audio is transcribed locally by faster-whisper (CPU, `int8`).
-4. The text is typed into the focused window via `wtype` (Wayland) or `xdotool` (X11).
+1. Run `./cli.py listen` (Whisper model downloaded on first run, cached on disk)
+2. Hold **Scroll Lock** to record from your microphone
+3. Release **Scroll Lock** — the audio is transcribed locally by faster-whisper
+4. The text is typed into the focused window via `wtype` (Wayland) or `xdotool` (X11)
 
 ## Install via pipx
 
@@ -32,6 +32,7 @@ sudo apt install xdotool   # X11
 You can install "stt2desktop" with [pipx](https://pipx.pypa.io/):
 
 ```bash
+sudo apt install pipx
 pipx install stt2desktop
 ```
 
@@ -74,16 +75,19 @@ Start the STT listener. Hold the hotkey to record, release to transcribe and ins
 ```
 [comment]: <> (✂✂✂ auto generated listen help end ✂✂✂)
 
-### Available models
 
-| Model | Size | Speed | Accuracy |
-|-------|------|-------|----------|
-| `tiny` | ~75 MB | fastest | lowest |
-| `base` | ~145 MB | fast | good (default) |
-| `small` | ~460 MB | slower | better |
-| `medium` | ~1.5 GB | slow | high |
+### Whisper models
 
-Larger models produce more accurate transcriptions but take longer to process.
+Just a selection and approximate values:
+
+| Model    | Size    | Speed   | Accuracy         |
+|----------|---------|---------|------------------|
+| `tiny`   | ~75 MB  | fastest | lowest           |
+| `base`   | ~145 MB | fast    | good             |
+| `small`  | ~460 MB | slower  | better (default) |
+| `medium` | ~1.5 GB | slow    | high             |
+
+Larger models produce more accurate transcriptions but take longer to process ;)
 
 
 ## start development
@@ -143,6 +147,8 @@ usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,test,
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [**dev**](https://github.com/jedie/stt2desktop/compare/v0.1.1...main)
+  * 2026-03-27 - Update README
 * [v0.1.1](https://github.com/jedie/stt2desktop/compare/v0.1.0...v0.1.1)
   * 2026-03-27 - +Proposal for alternative hotkey
   * 2026-03-27 - fix color outputs
