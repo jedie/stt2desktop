@@ -82,7 +82,7 @@ def listen(
         if key == hotkey:
             recorder.stop()
 
-    print(f'Ready. Hold [bold]{hotkey.name}[/bold] to record, release to transcribe.')
+    print(f'[bright_green]Ready![/bright_green] Hold [bold]{hotkey.name}[/bold] to record, release to transcribe.')
     print('Press Ctrl+C to exit.')
     try:
         with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:

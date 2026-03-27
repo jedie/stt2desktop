@@ -139,6 +139,7 @@ usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,test,
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/stt2desktop/compare/v0.1.0...main)
+  * 2026-03-27 - fix color outputs
   * 2026-03-27 - Update requirements
   * 2026-03-27 - add missing license file.
 * [v0.1.0](https://github.com/jedie/stt2desktop/compare/v0.0.1...v0.1.0)
