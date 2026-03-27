@@ -48,6 +48,9 @@ def listen(
         int | None,
         tyro.conf.arg(help='Number of parallel transcription workers. Defaults to CPU count.'),
     ] = None,
+    sounds: Annotated[
+        bool, tyro.conf.arg(help='Play notification sounds via chime.')
+    ] = True,
 ):
     """Start the STT listener. Hold the hotkey to record, release to transcribe and insert."""
 
@@ -69,7 +72,7 @@ def listen(
         compute_type=compute_type,
         num_workers=num_workers,
     )
-    recorder = Recorder(model=model, sample_rate=sample_rate)
+    recorder = Recorder(model=model, sample_rate=sample_rate, notification=sounds)
 
     def on_press(key):
         if key == hotkey:

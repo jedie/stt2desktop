@@ -64,6 +64,7 @@ Start the STT listener. Hold the hotkey to record, release to transcribe and ins
 │ --device STR              Device to run inference on, e.g. cpu or cuda. (default: auto)                              │
 │ --compute-type STR        Quantization type, e.g. int8, float16, float32. (default: int8)                            │
 │ --num-workers {None}|INT  Number of parallel transcription workers. Defaults to CPU count. (default: None)           │
+│ --sounds, --no-sounds     Play notification sounds via chime. (default: True)                                        │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated listen help end ✂✂✂)
@@ -138,6 +139,7 @@ usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,test,
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [v0.1.0](https://github.com/jedie/stt2desktop/compare/v0.0.1...v0.1.0)
+  * 2026-03-27 - Use chime to play notification sounds
   * 2026-03-27 - Try to fix github CI run
   * 2026-03-27 - Cleanup README
   * 2026-03-27 - pipx usage

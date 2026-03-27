@@ -12,6 +12,7 @@ dependencies = [
     "faster-whisper",  # https://github.com/SYSTRAN/faster-whisper
     "sounddevice",  # https://github.com/spatialaudio/python-sounddevice/
     "pynput",  # https://github.com/moses-palmer/pynput
+    "chime",  # https://github.com/MaxHalford/chime
     "cli-base-utilities>=0.27.1",  # https://github.com/jedie/cli-base-utilities
     "bx_py_utils",  # https://github.com/boxine/bx_py_utils
     "tyro",  # https://github.com/brentyi/tyro
