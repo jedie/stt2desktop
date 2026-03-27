@@ -33,7 +33,7 @@ def version():
 def main(args: Sequence[str] | None = None):
     print_version(stt2desktop)
     app.cli(
-        prog='./cli.py',
+        prog='stt2desktop',  # pipx usage ;)
         description=constants.CLI_EPILOG,
         use_underscores=False,  # use hyphens instead of underscores
         sort_subcommands=True,

@@ -34,7 +34,7 @@ class ReadmeTestCase(BaseTestCase):
         assert_in(
             content=stdout,
             parts=(
-                'usage: ./cli.py [-h]',
+                'usage: stt2desktop [-h]',
                 ' version ',
                 'Print version and exit',
                 constants.CLI_EPILOG,
@@ -47,13 +47,13 @@ class ReadmeTestCase(BaseTestCase):
             stdout = invoke(
                 cli_bin=PACKAGE_ROOT / 'cli.py',
                 args=['listen', '--help'],
-                strip_line_prefix='usage: ./cli.py listen ',
+                strip_line_prefix='usage: stt2desktop listen ',
             )
         cpu_count_part = f'Defaults to CPU count. (default: {DEFAULT_WHISPER_NUM_WORKERS})'
         assert_in(
             content=stdout,
             parts=(
-                'usage: ./cli.py listen ',
+                'usage: stt2desktop listen ',
                 ' --hotkey ',
                 ' --model ',
                 cpu_count_part,

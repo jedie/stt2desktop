@@ -18,7 +18,28 @@ Everything runs locally on your machine — no internet connection required afte
 3. Release **Scroll Lock** — the audio is transcribed locally by faster-whisper (CPU, `int8`).
 4. The text is typed into the focused window via `wtype` (Wayland) or `xdotool` (X11).
 
-## Setup
+## Install via pipx
+
+Requirements: Python 3.12+, a working microphone, and either `wtype` (Wayland) or `xdotool` (X11):
+
+```bash
+sudo apt install wtype     # Wayland
+sudo apt install xdotool   # X11
+```
+
+You can install "stt2desktop" with [pipx](https://pipx.pypa.io/):
+
+```bash
+pipx install stt2desktop
+```
+
+Then run:
+
+```bash
+stt2desktop listen
+```
+
+## Setup (development)
 
 Requirements: Python 3.12+, [`uv`](https://github.com/astral-sh/uv), a working microphone, and either `wtype` (Wayland) or `xdotool` (X11):
 
@@ -27,15 +48,11 @@ sudo apt install wtype     # Wayland
 sudo apt install xdotool   # X11
 ```
 
-Then run:
-
-```bash
-./cli.py listen
-```
+## CLI listen
 
 [comment]: <> (✂✂✂ auto generated listen help start ✂✂✂)
 ```
-usage: ./cli.py listen [-h] [LISTEN OPTIONS]
+usage: stt2desktop listen [-h] [LISTEN OPTIONS]
 
 Start the STT listener. Hold the hotkey to record, release to transcribe and insert.
 
@@ -73,7 +90,7 @@ Larger models produce more accurate transcriptions but take longer to process. F
 
 [comment]: <> (✂✂✂ auto generated main help start ✂✂✂)
 ```
-usage: ./cli.py [-h] {listen,version}
+usage: stt2desktop [-h] {listen,version}
 
 
 
@@ -146,7 +163,9 @@ usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,test,
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/stt2desktop/compare/b407f8f...main)
+* [v0.1.0](https://github.com/jedie/stt2desktop/compare/v0.0.1...v0.1.0)
+  * 2026-03-27 - pipx usage
+* [v0.0.1](https://github.com/jedie/stt2desktop/compare/b407f8f...v0.0.1)
   * 2026-03-26 - Add POC
   * 2026-03-26 - init
 
