@@ -39,15 +39,6 @@ Then run:
 stt2desktop listen
 ```
 
-## Setup (development)
-
-Requirements: Python 3.12+, [`uv`](https://github.com/astral-sh/uv), a working microphone, and either `wtype` (Wayland) or `xdotool` (X11):
-
-```bash
-sudo apt install wtype     # Wayland
-sudo apt install xdotool   # X11
-```
-
 ## CLI listen
 
 [comment]: <> (✂✂✂ auto generated listen help start ✂✂✂)
@@ -84,26 +75,7 @@ Start the STT listener. Hold the hotkey to record, release to transcribe and ins
 | `small` | ~460 MB | slower | better |
 | `medium` | ~1.5 GB | slow | high |
 
-Larger models produce more accurate transcriptions but take longer to process. For most use cases `base` or `small` is a good starting point.
-
-## CLI
-
-[comment]: <> (✂✂✂ auto generated main help start ✂✂✂)
-```
-usage: stt2desktop [-h] {listen,version}
-
-
-
-╭─ options ─────────────────────────────────────────────────────────────────────────────────────────╮
-│ -h, --help   show this help message and exit                                                      │
-╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ subcommands ─────────────────────────────────────────────────────────────────────────────────────╮
-│ (required)                                                                                        │
-│   • listen   Start the STT listener. Hold the hotkey to record, release to transcribe and insert. │
-│   • version  Print version and exit                                                               │
-╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
-```
-[comment]: <> (✂✂✂ auto generated main help end ✂✂✂)
+Larger models produce more accurate transcriptions but take longer to process.
 
 
 ## start development
