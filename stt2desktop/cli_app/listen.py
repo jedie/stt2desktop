@@ -45,11 +45,16 @@ def listen(
         str, tyro.conf.arg(help='Quantization type, e.g. int8, float16, float32.')
     ] = DEFAULT_WHISPER_COMPUTE_TYPE,
     num_workers: Annotated[
-        int,
+        int | None,
         tyro.conf.arg(help='Number of parallel transcription workers. Defaults to CPU count.'),
-    ] = DEFAULT_WHISPER_NUM_WORKERS,
+    ] = None,
 ):
     """Start the STT listener. Hold the hotkey to record, release to transcribe and insert."""
+
+    # FIXME: Resolve here instead of in the signature so the help text shows None rather than a
+    #        machine-specific CPU count, keeping it stable across platforms (CI run):
+    num_workers = num_workers or DEFAULT_WHISPER_NUM_WORKERS
+
     setup_logging(verbosity=verbosity)
 
     # Before start, check if needed binaries are available:

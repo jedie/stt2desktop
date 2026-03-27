@@ -11,6 +11,8 @@ Local speech-to-text for desktop using [faster-whisper](https://github.com/SYSTR
 Let's you dictate text into any application without sending audio to any cloud services.
 Everything runs locally on your machine — no internet connection required after the initial model was download.
 
+Currently only tested under Linux with KDE ;)
+
 ## How it works
 
 1. Run `./cli.py listen` — the Whisper model is loaded into memory (downloaded on first run).
@@ -39,15 +41,6 @@ Then run:
 stt2desktop listen
 ```
 
-## Setup (development)
-
-Requirements: Python 3.12+, [`uv`](https://github.com/astral-sh/uv), a working microphone, and either `wtype` (Wayland) or `xdotool` (X11):
-
-```bash
-sudo apt install wtype     # Wayland
-sudo apt install xdotool   # X11
-```
-
 ## CLI listen
 
 [comment]: <> (✂✂✂ auto generated listen help start ✂✂✂)
@@ -57,20 +50,20 @@ usage: stt2desktop listen [-h] [LISTEN OPTIONS]
 Start the STT listener. Hold the hotkey to record, release to transcribe and insert.
 
 ╭─ options ────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ -h, --help          show this help message and exit                                                                  │
-│ -v, --verbosity     Verbosity level; e.g.: -v, -vv, -vvv, etc. (repeatable)                                          │
+│ -h, --help                show this help message and exit                                                            │
+│ -v, --verbosity           Verbosity level; e.g.: -v, -vv, -vvv, etc. (repeatable)                                    │
 │ --model {tiny_en,tiny,base_en,base,small_en,small,medium_en,medium,large_v1,large_v2,large_v3,large,distil_large_v2, │
 │ distil_medium_en,distil_small_en,distil_large_v3,distil_large_v3_5,large_v3_turbo,turbo}                             │
-│                     Whisper model to use for transcription. (default: small)                                         │
+│                           Whisper model to use for transcription. (default: small)                                   │
 │ --hotkey {alt,alt_l,alt_r,alt_gr,backspace,caps_lock,cmd,cmd_l,cmd_r,ctrl,ctrl_l,ctrl_r,delete,down,end,enter,esc,   │
 │ f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16,f17,f18,f19,f20,home,left,page_down,page_up,right,shift,      │
 │ shift_l,shift_r,space,tab,up,media_play_pause,media_volume_mute,media_volume_down,media_volume_up,media_previous,    │
 │ media_next,insert,menu,num_lock,pause,print_screen,scroll_lock}                                                      │
-│                     Key to hold for recording. Release to transcribe and insert text. (default: scroll_lock)         │
-│ --sample-rate INT   Audio sample rate in Hz. Whisper expects 16000. (default: 16000)                                 │
-│ --device STR        Device to run inference on, e.g. cpu or cuda. (default: auto)                                    │
-│ --compute-type STR  Quantization type, e.g. int8, float16, float32. (default: int8)                                  │
-│ --num-workers INT   Number of parallel transcription workers. Defaults to CPU count. (default:XY)                   │
+│                           Key to hold for recording. Release to transcribe and insert text. (default: scroll_lock)   │
+│ --sample-rate INT         Audio sample rate in Hz. Whisper expects 16000. (default: 16000)                           │
+│ --device STR              Device to run inference on, e.g. cpu or cuda. (default: auto)                              │
+│ --compute-type STR        Quantization type, e.g. int8, float16, float32. (default: int8)                            │
+│ --num-workers {None}|INT  Number of parallel transcription workers. Defaults to CPU count. (default: None)           │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 [comment]: <> (✂✂✂ auto generated listen help end ✂✂✂)
@@ -84,26 +77,7 @@ Start the STT listener. Hold the hotkey to record, release to transcribe and ins
 | `small` | ~460 MB | slower | better |
 | `medium` | ~1.5 GB | slow | high |
 
-Larger models produce more accurate transcriptions but take longer to process. For most use cases `base` or `small` is a good starting point.
-
-## CLI
-
-[comment]: <> (✂✂✂ auto generated main help start ✂✂✂)
-```
-usage: stt2desktop [-h] {listen,version}
-
-
-
-╭─ options ─────────────────────────────────────────────────────────────────────────────────────────╮
-│ -h, --help   show this help message and exit                                                      │
-╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
-╭─ subcommands ─────────────────────────────────────────────────────────────────────────────────────╮
-│ (required)                                                                                        │
-│   • listen   Start the STT listener. Hold the hotkey to record, release to transcribe and insert. │
-│   • version  Print version and exit                                                               │
-╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
-```
-[comment]: <> (✂✂✂ auto generated main help end ✂✂✂)
+Larger models produce more accurate transcriptions but take longer to process.
 
 
 ## start development
@@ -164,6 +138,8 @@ usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,test,
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [v0.1.0](https://github.com/jedie/stt2desktop/compare/v0.0.1...v0.1.0)
+  * 2026-03-27 - Try to fix github CI run
+  * 2026-03-27 - Cleanup README
   * 2026-03-27 - pipx usage
 * [v0.0.1](https://github.com/jedie/stt2desktop/compare/b407f8f...v0.0.1)
   * 2026-03-26 - Add POC
