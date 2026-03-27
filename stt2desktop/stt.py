@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
 
 
 def load_whisper_model(*, model_size: str, device: str, compute_type: str, num_workers: int) -> WhisperModel:
-    print(f'Loading model {model_size} ({device=} {compute_type=} {num_workers=})...')
+    print(f'Loading model [cyan]{model_size}[/cyan] ({device=} {compute_type=} {num_workers=}) ... ')
+    print('[magenta](I take some time on the first run)')
     model = WhisperModel(model_size, device=device, compute_type=compute_type, num_workers=num_workers)
     print('[green]Model loaded.[/green]')
     return model

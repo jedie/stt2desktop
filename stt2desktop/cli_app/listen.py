@@ -33,7 +33,12 @@ def listen(
     ] = DEFAULT_WHISPER_MODEL,
     hotkey: Annotated[
         keyboard.Key,
-        tyro.conf.arg(help='Key to hold for recording. Release to transcribe and insert text.'),
+        tyro.conf.arg(
+            help=(
+                'Key to hold for recording. Release to transcribe and insert text.'
+                ' Proposal for alternative key: ctrl_r, alt_r, cmd_r, shift_r.'
+            )
+        ),
     ] = DEFAULT_HOTKEY,
     sample_rate: Annotated[
         int, tyro.conf.arg(help='Audio sample rate in Hz. Whisper expects 16000.')
@@ -48,9 +53,7 @@ def listen(
         int | None,
         tyro.conf.arg(help='Number of parallel transcription workers. Defaults to CPU count.'),
     ] = None,
-    sounds: Annotated[
-        bool, tyro.conf.arg(help='Play notification sounds via chime.')
-    ] = True,
+    sounds: Annotated[bool, tyro.conf.arg(help='Play notification sounds via chime.')] = True,
 ):
     """Start the STT listener. Hold the hotkey to record, release to transcribe and insert."""
 
@@ -82,7 +85,7 @@ def listen(
         if key == hotkey:
             recorder.stop()
 
-    print(f'Ready. Hold [bold]{hotkey.name}[/bold] to record, release to transcribe.')
+    print(f'[bright_green]Ready![/bright_green] Hold [bold]{hotkey.name}[/bold] to record, release to transcribe.')
     print('Press Ctrl+C to exit.')
     try:
         with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
