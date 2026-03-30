@@ -148,6 +148,7 @@ usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,test,
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/stt2desktop/compare/v0.1.1...main)
+  * 2026-03-30 - print warning when not running on Linux
   * 2026-03-30 - Update requirements
   * 2026-03-27 - Update README
 * [v0.1.1](https://github.com/jedie/stt2desktop/compare/v0.1.0...v0.1.1)

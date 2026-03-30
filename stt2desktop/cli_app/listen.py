@@ -1,4 +1,5 @@
 import logging
+import platform
 from typing import Annotated
 
 import tyro
@@ -62,6 +63,9 @@ def listen(
     num_workers = num_workers or DEFAULT_WHISPER_NUM_WORKERS
 
     setup_logging(verbosity=verbosity)
+
+    if platform.system() != 'Linux':
+        print(f'[yellow]Warning: Running on {platform.system()} may not work.[/yellow]')
 
     # Before start, check if needed binaries are available:
     if IS_WAYLAND:
